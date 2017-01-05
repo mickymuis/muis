@@ -27,7 +27,7 @@
 		</nav>
 	</header><!-- #masthead -->
 
-<?php if( is_active_sidebar( 'fw-header' ) ) : ?>
+<?php if( is_active_sidebar( 'fw-header' ) && !is_single() ) : ?>
     <div id="header-widget">
         <?php dynamic_sidebar( 'fw-header' ); ?>
     </div>

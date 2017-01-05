@@ -8,6 +8,11 @@ global $next_id;
 global $row_alt;
 
 while( have_posts() ) : the_post();
+    if( empty( $last_id ) ) {
+        if( !is_active_sidebar( 'fw-header' ) || is_single() )
+            echo '<div class="first-post-spacer"></div>';
+    
+    }
     $next_post =get_adjacent_post();
     if( !empty( $next_post ) )
         $next_id =$next_post->ID;
@@ -20,11 +25,6 @@ while( have_posts() ) : the_post();
         get_template_part( 'content', 'image' );
     }
     else {
-        if( empty( $last_id ) ) {
-            // First post is a non-image type
-            if( !is_active_sidebar( 'fw-header' ) )
-                echo '<div class="first-post-spacer"></div>';
-        }
         get_template_part( 'content', null );
     }
     $row_alt =!$row_alt;
