@@ -1,0 +1,475 @@
+/*
+Theme Name: Muis
+Theme URI: http://github.com/mickymuis
+Author: Micky Faas
+Author URI: http://github.com/mickymuis
+Description: Piep.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: custom-made
+Text Domain: muis
+
+This theme, like WordPress, is licensed under the GPL.
+*/
+
+/**
+  * Custom fonts
+  */
+
+@import url( "fonts/asul/asul.css" );
+@import url( "fonts/fontawesome/font-awesome.min.css" );
+/*@import url( "fonts/quicksand/quicksand.css" );*/
+@import url( "fonts/museo/museo300.css" );
+
+/**
+  * General baseline styles 
+  */
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	border: 0;
+	font-family: inherit;
+	font-size: 100%;
+	font-style: inherit;
+	font-weight: inherit;
+	margin: 0;
+	outline: 0;
+	padding: 0;
+	vertical-align: baseline;
+}
+
+img, a img {
+    border: 0;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    font-family: 'asul';
+    font-weight: normal;
+    font-size: 13px;
+    font-size: 1.3rem;
+}
+
+body {
+    background-color: whitesmoke;
+
+}
+
+html {
+	font-size: 62%;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	text-rendering: optimizeLegibility;
+}
+
+a, a:visited {
+    text-decoration: none;
+    color: #c56220;
+/* #db6d24*/
+}
+
+a:hover {
+    text-decoration: underline;
+}
+/* Text meant only for screen readers. */
+.screen-reader-text {
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: polygon(0px 0px, 0px 0px,0px 0px, 0px 0px);
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+/** 
+  * The fluid wrapper provides a centered box that is influenced by viewport-width and font-size.
+  */
+.fluid-outer {
+    /* For older IE */
+    text-align: center;
+    background-color: white;
+}
+
+.fluid-inner::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.fluid-inner {
+    overflow: auto;
+    text-align: left;
+    margin: 0 auto;
+    min-width: 200px;
+    min-width: 20rem;
+    max-width: 1000px;
+    max-width: 100rem;
+}
+
+.row-pri {
+    background-color: white;
+}
+
+.row-alt {
+    background-color: whitesmoke;
+}
+
+/**
+  * Left and right floating boxes 
+  */
+
+.left-floater {
+    float: left;
+    clear: none;
+    width: 73%;
+}
+
+.right-floater {
+    float: right;
+    clear: none;
+    width: 23%;
+}
+
+/** 
+  * Header & Navigation
+  */
+
+#header-widget {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    max-height: 100vh;
+}
+
+#header-widget img {
+    width: 100%;
+    max-width: inherit !important;
+    height: auto;
+}
+
+span#menu-button {
+    position: fixed;
+    z-index: 98;
+    top: 5px;
+    right: 10px;
+    display: block;
+    padding: 5px;
+    background-color: gray;
+    cursor: pointer;
+}
+
+span#menu-button i {
+    font-size: 28px;
+    color: lightgray;
+    cursor: inherit;
+}
+
+.site-header {
+    font-family: 'museo300';
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid lightgray;
+    height: 50px;
+    height: 5rem;
+    padding: 0 15px 0 15px;
+    padding: 0 1.5rem 0 1.5rem;
+}
+
+
+body.admin-bar .site-header {
+    top: 32px;
+}
+
+.site-title {
+    float: left;
+    font-size: 18px;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 50px;
+    line-height: 5rem;
+}
+
+.site-navigation ul {
+    float: right;
+    list-style: none;
+    margin: 0;
+}
+
+.site-navigation li {
+    display: inline;
+    position: relative;
+    font-size: 18px;
+    font-size: 1.8rem;
+    line-height: 50px;
+    line-height: 5rem;
+}
+
+.site-navigation li li {
+    display: block;
+}
+
+.site-navigation ul ul ul {
+    padding-left: 20px;
+    padding-left: 2rem;
+}
+
+/**
+  * Sidebar/ widgets
+  */
+
+.sidebar-container {
+    min-width: 100px;
+    min-width: 10rem;
+    max-width: 250px;
+    max-width: 25rem;
+    padding: 25px 10px 25px 10px;
+    padding: 2.5rem 1rem 2.5rem 1rem;
+    background-color: whitesmoke;
+    overflow: hidden;
+}
+
+.sidebar-widget {
+    padding: 10px 0 10px 0;
+    padding: 1rem 0 1rem 0;
+}
+
+.sidebar-widget ul {
+    list-style: none;
+    padding-top: 10px;
+    padding-top: 1rem;
+}
+
+.sidebar-widget h3 {
+    font-family: 'museo300', sans-serif;
+    width: 100%;
+    text-align: center;
+    background-color: darkgray;
+    color: whitesmoke;
+    line-height: 18px;
+    line-height: 1.8rem;
+    font-weight: bold;
+}
+
+/**
+  * Footer
+  */
+
+.footer-left {
+    float: left;
+    height: 100%;
+    width: 25%;
+    margin: 0;
+}
+
+.footer-right {
+    float: right;
+    height: 100%;
+    width: 25%;
+    margin: 0;
+}
+
+.footer-left, .footer-right {
+    padding: 25px 10px 25px 10px;
+    padding: 2.5rem 1rem 2.5rem 1rem;
+}
+
+.site-footer-border {
+    border-top: 1px solid lightgray;
+    background-color: whitesmoke;
+}
+
+.site-footer {
+    width: 100%;
+}
+
+.site-footer h3 {
+    display: none; /*hide widget titles*/
+}
+
+.colophon {
+    clear: both;
+    font-size: small;
+    color: darkgray;
+    text-align: center;
+    display: block;
+    width: 100%;     
+}
+
+/**
+  * Individual posts
+  */
+
+.first-post-spacer {
+    height: 50px;
+    height: 5rem;
+}
+
+.entry-container {
+    padding: 25px 10px 25px 10px;
+    padding: 2.5rem 1rem 2.5rem 1rem;
+}
+
+
+.entry-content p, .entry-summary p {
+    line-height: 125%;
+    margin-bottom: 5px;
+    margin-bottom: .5rem;
+    margin-top: 5px;
+    margin-top: .5rem;
+}
+
+.entry-content {
+    -webkit-columns: 2 340px;
+    -moz-columns: 2 340px;
+    columns: 2 340px;
+    /*height: 350px;*/
+}
+
+.entry-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+.entry-header {
+    margin-bottom: 15px;
+    margin-bottom: 1.5rem;
+}
+
+.entry-header h1 {
+    font-family: 'museo300';
+    font-size: 24px;
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+    margin-bottom: 1.5rem;
+}
+
+.entry-header h1 a {
+    color: black;
+}
+/**
+  * Gallery view for image posts 
+  */
+
+.gallery-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -270px;
+    margin-top: -270px;
+    /* Fallback for web browsers that doesn't support RGBa */
+    background: rgb(255, 255, 255);
+    /* RGBa with 0.6 opacity */
+    background: rgba(255, 255, 255, 0.6);
+    /* For IE 5.5 - 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99FFFFFF, endColorstr=#99FFFFFF);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99FFFFFF, endColorstr=#99FFFFFF)";
+    padding: 20px;
+}
+
+.gallery-image img{
+    margin: auto;
+    display: block;
+    width: auto;
+    height: 500px;
+}
+
+.gallery-backdrop {
+    overflow: hidden;
+    position: relative;
+}
+
+.gallery-label {
+    position: absolute;
+    bottom: 2%;
+    left: 5%;
+    background-color: white;
+    padding: 25px;
+    border: 1px solid black;
+    z-index: 1;
+}
+
+.gallery-label h1 {
+    font-size: inherit;
+    font-weight: bold;
+}
+
+.gallery-next-button, .gallery-prev-button {
+    position: absolute;
+    z-index: 98;
+    bottom: 10px;
+    right: 65px;
+    display: block;
+    padding: 5px;
+    color: gray;
+    cursor: pointer;
+    font-size: 48px;
+}
+
+.gallery-prev-button {
+    right: 10px;
+}
+
+.button-link a, .button-link a:visited {
+    color: gray;
+}
+
+/*
+ * Pagination links 
+ */
+
+.post-navigation {
+    background-color: white;
+    padding: 5px 10px 5px 10px;
+    padding: .5rem 1rem .5rem 1rem;
+}
+
+.nav-links a:first-child {
+    float: right;
+    display: block;
+    color: darkgray;
+}
+
+.nav-links a:last-child {
+    float: left;
+    display: block;
+    color: darkgray;
+}
+
+.paging-navigation {
+    display: none; /* For infinite loader */
+}
+
+/*
+ * Infinite loader
+ */
+
+#infinite-loader {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 20px;
+	height: 20px;
+}
+
+#infinite-loader.active {
+	display: block;
+}
+
+
+
