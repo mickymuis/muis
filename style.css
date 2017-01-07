@@ -55,8 +55,8 @@ select,
 textarea {
     font-family: 'asul';
     font-weight: normal;
-    font-size: 13px;
-    font-size: 1.3rem;
+    font-size: 14px;
+    font-size: 1.4rem;
 }
 
 body {
@@ -144,17 +144,83 @@ a:hover {
   * Header & Navigation
   */
 
+.custom-header-media {
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 100%;
+}
+
+/*.has-header-image*/ .custom-header-media img
+/*.has-header-video .custom-header-media video,
+.has-header-video .custom-header-media iframe*/ {
+	position: fixed;
+        z-index: -10;
+	height: auto;
+	left: 50%;
+	max-width: 1000%;
+	min-height: 100%;
+	min-width: 100%;
+	min-width: 100vw; /* vw prevents 1px gap on left that 100% has */
+	width: auto;
+	top: 50%;
+	padding-bottom: 1px; /* Prevent header from extending beyond the footer */
+	-ms-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+}
+
 #header-widget {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    max-height: 100vh;
+    vertical-align: center;
 }
 
 #header-widget img {
-    width: 100%;
+    /*width: 100%;*/
     max-width: inherit !important;
     height: auto;
+}
+
+#header-widget-contents {
+    margin-top: 50px; /* To be changed by header function */
+    overflow: hidden;
+}
+
+.header-contents-outer {
+    background-color: transparent !important;
+    overflow: hidden;
+}
+
+.header-contents-inner {
+    text-align: center !important;
+    overflow: hidden;
+}
+
+.header-text {
+    overflow: hidden;
+
+}
+
+.header-text h1 {
+    text-align: center;
+    font-size: 72px;
+    font-size: 3vmax;
+    color: whitesmoke;
+    font-family: 'museo300', sans-serif;
+    font-weight: bold;
+    display: inline;
+    padding: 0.5rem;
+               
+   /* Needs prefixing */
+   -webkit-box-decoration-break: clone;
+     box-decoration-break: clone;
+    overflow: hidden;
 }
 
 span#menu-button {
@@ -216,6 +282,8 @@ body.admin-bar .site-header {
     font-size: 1.8rem;
     line-height: 50px;
     line-height: 5rem;
+    padding-left: 5px;
+    padding-left: 0.5rem;
 }
 
 .site-navigation li li {

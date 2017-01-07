@@ -9,7 +9,7 @@ global $row_alt;
 
 while( have_posts() ) : the_post();
     if( empty( $last_id ) ) {
-        if( !is_active_sidebar( 'fw-header' ) || is_single() )
+        if( !is_home() )
             echo '<div class="first-post-spacer"></div>';
     
     }

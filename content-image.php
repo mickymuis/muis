@@ -8,14 +8,17 @@ global $next_id;
 $background_color ="#ffffff";
 $bgcolor_metatag =get_post_meta( $post->ID, 'background_color', true );
 if( !empty( $bgcolor_metatag ) )
-    $background_color =$bgcolor_metatag;
+    $background_color =esc_attr( $bgcolor_metatag );
+$frame_color =esc_attr( get_post_meta( $post->ID, 'frame_color', true ) );
 ?>
 
 <div class ="entry gallery-backdrop" style="background-color: <?php echo $background_color;?>">
     <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-        <div class="gallery-image"><a href="<?php echo esc_url(wp_get_shortlink( $post->ID ));?>#main" rel="bookmark">
-        <?php the_post_thumbnail(); ?>
-        </a></div>
+        <div class="gallery-image" <?php if( !empty( $frame_color ) ) echo "style=\"background-color: $frame_color !important;\"";?> >
+            <a href="<?php echo esc_url(wp_get_shortlink( $post->ID ));?>#main" rel="bookmark">
+                <?php the_post_thumbnail(); ?>
+            </a>
+        </div>
 <?php if( !is_single() ) : ?>
         <div class="gallery-label">
         <?php the_title( '<h1>', '</h1>' );

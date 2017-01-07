@@ -15,7 +15,20 @@ if( !function_exists( 'muis_setup' ) ) :
      */
     function muis_setup() {
 
+	/*
+	 * Make theme available for translation.
+	 */
+	load_theme_textdomain( 'muis' );
+
+	/*
+	 * Let WordPress manage the document title.
+	 */
+	add_theme_support( 'title-tag' );
+        
+        /* Thumbnail support */
         add_theme_support( 'post-thumbnails' );
+        
+        /* Set-up menus */
         register_nav_menus( array(
             'primary'   => __( 'Top Right', 'muis' ),
             'secondary'   => __( 'Top Left', 'muis' ) ) );
@@ -26,6 +39,34 @@ if( !function_exists( 'muis_setup' ) ) :
           */
         add_theme_support( 'post-formats', array ( 'aside', 'gallery', 'quote', 'image', 'video' ) );
     
+	/**
+          * Enable custom header in the customizer 
+         */
+        add_theme_support( 'custom-header', apply_filters( 'muis_custom_header_args', array(
+		'default-image'      => get_parent_theme_file_uri( '/images/header.jpg' ),
+		'width'              => 1600,
+		'height'             => 900,
+		'flex-height'        => true,
+		'video'              => false,
+		'header-text'            => true,
+                'wp-head-callback'   => 'muis_header_style',
+	) ) );
+
+	register_default_headers( array(
+		'default-image' => array(
+			'url'           => '%s/images/header.jpg',
+			'thumbnail_url' => '%s/images/header.jpg',
+			'description'   => __( 'Default Header Image', 'muis' ),
+		),
+	) );
+
+
+        // Add theme support for Custom Logo.
+	add_theme_support( 'custom-logo', array(
+		'width'       => 250,
+		'height'      => 250,
+		'flex-width'  => true,
+	) );
 
     }
 add_action( 'after_setup_theme', 'muis_setup' );
@@ -163,6 +204,100 @@ if( !function_exists( 'more_posts' ) ) :
         global $wp_query;
         return $wp_query->current_post + 1 < $wp_query->post_count;
     }
+endif;
+
+if ( ! function_exists( 'muis_header_style' ) ) :
+/**
+ * Styles the header image and text displayed on the blog.
+ * This function was kindly borrowed from the `twentyseventeen` theme
+ */
+function muis_header_style() {
+	$header_text_color = get_header_textcolor();
+	$header_text_bgcolor = get_theme_mod( 'header_text_bgcolor', 'blank' );
+
+	// If no custom options for text are set, let's bail.
+	// get_header_textcolor() options: add_theme_support( 'custom-header' ) is default, hide text (returns 'blank') or any hex value.
+	if ( get_theme_support( 'custom-header', 'default-text-color' ) === $header_text_color ) {
+		return;
+	}
+
+	// If we get this far, we have custom styles. Let's do this.
+	?>
+	<style id="muis-custom-header-styles" type="text/css">
+	<?php
+		// Has the text been hidden?
+		if ( 'blank' === $header_text_color ) :
+	?>
+		.header-text {
+			position: absolute;
+			clip: rect(1px, 1px, 1px, 1px);
+		}
+	<?php
+		// If the user has set a custom color for the text use that.
+		else :
+	?>
+		.header-text h1 {
+			color: #<?php echo esc_attr( $header_text_color ); ?> !important;
+		}
+	<?php endif; 
+		if( 'blank' === $header_text_bgcolor ) :
+	?>
+		.header-text h1 { background-color: transparent !important; }
+	<?php	else: ?>
+		.header-text h1 {
+			background-color: <?php echo esc_attr( $header_text_bgcolor ); ?> !important;
+		}
+
+	<?php	endif; ?>
+	</style>
+	<?php
+}
+endif; 
+
+if( !function_exists( 'muis_customize_register' ) ) :
+    function muis_customize_register( $wp_customize ) {
+        $wp_customize->add_setting( 'header_text_h1', array(
+          'type' => 'theme_mod', // or 'option'
+          'capability' => 'edit_theme_options',
+          'default' => 'Hello, world!',
+          'transport' => 'refresh', // or postMessage
+          'sanitize_callback' => '',
+          'sanitize_js_callback' => '', // Basically to_json.
+        ) );
+        
+        $wp_customize->add_setting( 'header_text_bgcolor', array(
+          'type' => 'theme_mod', // or 'option'
+          'capability' => 'edit_theme_options',
+          'default' => 'blank',
+          'transport' => 'refresh', // or postMessage
+          'sanitize_callback' => '',
+          'sanitize_js_callback' => '', // Basically to_json.
+        ) );
+        
+        $wp_customize->add_section( 'header_text', array(
+            'title' => __( 'Header Text' ),
+            'description' => __( 'Edit the text displayed in the frontpage header, if no widget is present' ),
+            'priority' => 160,
+            'capability' => 'edit_theme_options' 
+        ) );
+        $wp_customize->add_control( 'header_text_h1', array(
+            'label' => __( 'Big head' ),
+            'type' => 'textarea',
+            'section' => 'header_text',
+            ) );
+
+	$wp_customize->add_control(
+	  new WP_Customize_Color_Control(
+	    $wp_customize, // WP_Customize_Manager
+	    'header_text_bgcolor', // Setting id
+	    array( // Args, including any custom ones.
+	      'label' => __( 'Header Text Background Color' ),
+	      'section' => 'colors',
+	    )
+	  )
+	);
+    }
+    add_action( 'customize_register', 'muis_customize_register' );
 endif;
 
 ?>

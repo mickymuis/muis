@@ -27,9 +27,22 @@
 		</nav>
 	</header><!-- #masthead -->
 
-<?php if( is_active_sidebar( 'fw-header' ) && !is_single() ) : ?>
+<?php if( is_home() ) : ?>
+    <div id="custom-header-media" class="custom-header-media">
+       <?php the_custom_header_markup(); ?> 
+    </div>
     <div id="header-widget">
-        <?php dynamic_sidebar( 'fw-header' ); ?>
+        <div id="header-widget-contents" class="header-contents-outer fluid-outer">
+            <div class="header-contents-inner fluid-inner">
+            <?php 
+                if( is_active_sidebar( 'fw-header' ) ) 
+                    dynamic_sidebar( 'fw-header' );
+                else{
+            ?>
+                    <span class="header-text"><h1><?php echo get_theme_mod( 'header_text_h1', '' ); ?></h1></span>
+            <?php } ?>
+            </div>
+        </div>
     </div>
 <?php endif; ?>
 
