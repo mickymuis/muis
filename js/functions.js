@@ -27,7 +27,7 @@ var _vmax =function() {
         return _window.width();
 };
 
-(function($) { 
+_document.ready( function($) { 
 
     // Custom frontpage header
     var header = {
@@ -247,4 +247,4 @@ var _vmax =function() {
     };
     loading.init();
 
-})( jQuery );
+});

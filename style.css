@@ -358,6 +358,8 @@ body.admin-bar .site-header {
 .site-footer-border {
     border-top: 1px solid lightgray;
     background-color: whitesmoke;
+/* neat trick to extend the footer to the bottom */
+box-shadow: 0px 500px 0px 500px whitesmoke;
 }
 
 .site-footer {
@@ -384,6 +386,7 @@ body.admin-bar .site-header {
 .first-post-spacer {
     height: 50px;
     height: 5rem;
+	background-color: white;
 }
 
 .entry-container {
@@ -404,7 +407,8 @@ body.admin-bar .site-header {
     -webkit-columns: 2 340px;
     -moz-columns: 2 340px;
     columns: 2 340px;
-    /*height: 350px;*/
+    -moz-column-fill: auto;
+         column-fill: auto;   
 }
 
 .entry-content img {

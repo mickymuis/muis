@@ -1,0 +1,17 @@
+/*
+ * Fixes for IE8 and lower 
+ */
+
+
+.custom-header-media {
+	background-position: bottom center;
+}
+
+.custom-header {
+	display: block;
+}
+
+.custom-header-media img {
+	left: 0;
+	top: 0;
+}
