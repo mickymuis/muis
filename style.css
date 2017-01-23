@@ -429,6 +429,10 @@ box-shadow: 0px 500px 0px 500px whitesmoke;
     margin-bottom: 1.5rem;
 }
 
+.entry-header h3 {
+    color: gray;
+}
+
 .entry-header h1 a {
     color: black;
 }

@@ -27,6 +27,7 @@ if( !function_exists( 'muis_setup' ) ) :
         
         /* Thumbnail support */
         add_theme_support( 'post-thumbnails' );
+	set_post_thumbnail_size( 900, 900 );
         
         /* Set-up menus */
         register_nav_menus( array(
@@ -258,14 +259,41 @@ function muis_header_style() {
 }
 endif; 
 
+
+if( !function_exists( 'muis_pre_get_posts' ) ) {
+/**
+  * This function is executed before The Loop and adapts the WP Query object
+  * to only show the post categories specified in theme mod 'frontpage_categories'
+  */
+    function muis_pre_get_posts( &$query ) {
+        if( !$query->is_home() || !$query->is_main_query() )
+            return true;
+
+        $categories =get_theme_mod( 'frontpage_categories', '' );
+        if( empty( $categories ) )
+            return true;
+
+        /* Modify query to only show specified categories */
+        $query->query_vars['category_name'] = $categories;
+        //return true;
+    }
+    add_action( 'pre_get_posts', 'muis_pre_get_posts' );
+}
+
+
 if( !function_exists( 'muis_customize_register' ) ) :
+/** 
+  * Registers theme modification settings and controls for the customizer.
+  * TODO: Move to a separate file
+  */
     function muis_customize_register( $wp_customize ) {
+        /* Settings */
         $wp_customize->add_setting( 'header_text_h1', array(
           'type' => 'theme_mod', // or 'option'
           'capability' => 'edit_theme_options',
           'default' => 'Hello, world!',
           'transport' => 'refresh', // or postMessage
-          'sanitize_callback' => '',
+          'sanitize_callback' => 'esc_html',
           'sanitize_js_callback' => '', // Basically to_json.
         ) );
         
@@ -278,14 +306,31 @@ if( !function_exists( 'muis_customize_register' ) ) :
           'sanitize_js_callback' => '', // Basically to_json.
         ) );
         
+        $wp_customize->add_setting( 'frontpage_categories', array(
+          'type' => 'theme_mod', // or 'option'
+          'capability' => 'edit_theme_options',
+          'default' => 'esc_html',
+          'transport' => 'refresh', // or postMessage
+        ) );
+        
+        /* Custom sections */
         $wp_customize->add_section( 'header_text', array(
-            'title' => __( 'Header Text' ),
-            'description' => __( 'Edit the text displayed in the frontpage header, if no widget is present' ),
+            'title' => __( 'Header Text', 'muis' ),
+            'description' => __( 'Edit the text displayed in the frontpage header, if no widget is present', 'muis' ),
             'priority' => 160,
             'capability' => 'edit_theme_options' 
         ) );
+
+        $wp_customize->add_section( 'frontpage_categories', array(
+            'title' => __( 'Frontpage Categories', 'muis' ),
+            'description' => __( 'Alters the posts query such that on the frontpage, only posts are shown that are in one of the given categories. Shows all posts if left empty', 'muis' ),
+            'priority' => 170,
+            'capability' => 'edit_theme_options' 
+        ) );
+
+        /* Custom controls */
         $wp_customize->add_control( 'header_text_h1', array(
-            'label' => __( 'Big head' ),
+            'label' => __( 'Big head', 'muis' ),
             'type' => 'textarea',
             'section' => 'header_text',
             ) );
@@ -295,11 +340,18 @@ if( !function_exists( 'muis_customize_register' ) ) :
 	    $wp_customize, // WP_Customize_Manager
 	    'header_text_bgcolor', // Setting id
 	    array( // Args, including any custom ones.
-	      'label' => __( 'Header Text Background Color' ),
+	      'label' => __( 'Header Text Background Color', 'muis' ),
 	      'section' => 'colors',
 	    )
 	  )
 	);
+        
+        $wp_customize->add_control( 'frontpage_categories', array(
+            'label' => __( 'List of category slugs, separated by commas', 'muis' ),
+            'type' => 'textarea',
+            'section' => 'frontpage_categories',
+            ) );
+
     }
     add_action( 'customize_register', 'muis_customize_register' );
 endif;

@@ -1,2 +1,2 @@
 # muis
-'muis' is responsive Wordpress theme especially suitable for portfolio websites
+'muis' is a responsive Wordpress theme especially suitable for portfolio websites
