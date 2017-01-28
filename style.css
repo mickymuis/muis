@@ -141,7 +141,7 @@ a:hover {
 }
 
 /** 
-  * Header & Navigation
+  * Frontpage header widget
   */
 
 .custom-header-media {
@@ -223,6 +223,10 @@ a:hover {
     overflow: hidden;
 }
 
+/**
+ * Navigation header
+ */
+
 span#menu-button {
     position: fixed;
     z-index: 98;
@@ -253,6 +257,14 @@ span#menu-button i {
     height: 5rem;
     padding: 0 15px 0 15px;
     padding: 0 1.5rem 0 1.5rem;
+}
+
+.site-header .custom-logo {
+    height: 45px;
+    height: 4.5rem;
+    margin-top: 2px;
+    width: auto;
+    float: left;
 }
 
 
@@ -370,6 +382,10 @@ box-shadow: 0px 500px 0px 500px whitesmoke;
     display: none; /*hide widget titles*/
 }
 
+.site-footer img {
+    height: auto;
+}
+
 .colophon {
     clear: both;
     font-size: small;
@@ -449,11 +465,11 @@ box-shadow: 0px 500px 0px 500px whitesmoke;
     /* Fallback for web browsers that doesn't support RGBa */
     background: rgb(255, 255, 255);
     /* RGBa with 0.6 opacity */
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.4);
     /* For IE 5.5 - 7*/
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99FFFFFF, endColorstr=#99FFFFFF);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#77FFFFFF, endColorstr=#77FFFFFF);
     /* For IE 8*/
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99FFFFFF, endColorstr=#99FFFFFF)";
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#77FFFFFF, endColorstr=#77FFFFFF)";
     padding: 20px;
 }
 
@@ -461,7 +477,8 @@ box-shadow: 0px 500px 0px 500px whitesmoke;
     margin: auto;
     display: block;
     width: auto;
-    height: 500px;
+    height: 150px;
+    display: none;
 }
 
 .gallery-backdrop {
@@ -547,5 +564,54 @@ box-shadow: 0px 500px 0px 500px whitesmoke;
 	display: block;
 }
 
+/*
+ * Media Queries for small screen devices 
+ */
+ 
+@media screen and (max-width: 480px) {
+    /* Show a vertical menu */
+    .site-header {
+        /*position: fixed;
+        z-index: 99;
+        top: 0;
+        left: 0;*/
+        width: 100%;
+        border-bottom: 1px solid lightgray;
+        height: auto;
+        padding: 1rem 1.5rem 1rem 1.5rem;
+    }
 
+    .site-header .custom-logo {
+        height: 45px;
+        height: 4.5rem;
+        margin-top: 0;
+        width: auto;
+        float: left;
+    }
+
+    body.admin-bar .site-header {
+        top: 0;
+    }
+
+    .site-title {
+        float: none;
+    }
+
+    .site-navigation ul {
+        float: none;
+        list-style: none;
+        margin: 0;
+    }
+
+    .site-navigation li {
+        display: block;
+        position: relative;
+    }
+
+    /* Remove all thick frames around gallery images */
+    .gallery-image {
+       background: transparent !important;
+       /* padding: 0;*/
+    }
+}
 

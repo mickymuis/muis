@@ -14,7 +14,7 @@ $frame_color =esc_attr( get_post_meta( $post->ID, 'frame_color', true ) );
 
 <div class ="entry gallery-backdrop" style="background-color: <?php echo $background_color;?>">
     <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-        <div class="gallery-image" <?php if( !empty( $frame_color ) ) echo "style=\"background-color: $frame_color !important;\"";?> >
+        <div class="gallery-image" <?php if( !empty( $frame_color ) ) echo "style=\"background-color: $frame_color;\"";?> >
             <a href="<?php echo esc_url(wp_get_shortlink( $post->ID ));?>#main" rel="bookmark">
                 <?php the_post_thumbnail(); ?>
             </a>

@@ -10,7 +10,9 @@ var _body = jQuery('body');
 
 var _navbar_visible_area =100;
 var _tablet_width = 950;
+var _smallscreen_width = 481;
 var _gallery_image_height_factor =0.75;
+var _gallery_image_width_factor =1.0;
 var _gallery_image_border =20;
 
 var _vmin =function() {
@@ -27,7 +29,7 @@ var _vmax =function() {
         return _window.width();
 };
 
-_document.ready( function($) { 
+( function($) { 
 
     // Custom frontpage header
     var header = {
@@ -160,11 +162,22 @@ _document.ready( function($) {
                 if( container.length == 0 )
                     return;
                 var image =container.find('img').first();
-                image.css( 'width', 'auto' );
-                image.css( 'height', Math.round( winHeight * _gallery_image_height_factor ) + 'px' );
+                
+                // Scale image depending on image and window width-height ratio
+                if( image.height() / image.width() < winHeight / winWidth ) {
+                    image.css( 'height', 'auto' );
+                    image.css( 'width', Math.round( winWidth * _gallery_image_width_factor ) + 'px' );
+                } else {
+                    image.css( 'width', 'auto' );
+                    image.css( 'height', Math.round( winHeight * _gallery_image_height_factor ) + 'px' );
+                }
+
+                /*container.css( 'margin-top', -Math.round( container.height() / 2 ) + 'px' );
+                container.css( 'margin-left', -Math.round( container.width() / 2 ) + 'px' );*/
                 container.css( 'margin-top', -Math.round( image.height() / 2 + _gallery_image_border ) + 'px' );
                 container.css( 'margin-left', -Math.round( image.width() / 2 + _gallery_image_border ) + 'px' );
-                console.debug( image.width() );
+                
+                image.fadeIn( 'fast' );
                 var load_link =backdrop.find( '#gallery-load-more' );
                 if( load_link.length == 1 ) {
                     load_link.off( 'click' );                    
@@ -173,6 +186,7 @@ _document.ready( function($) {
                                 var link =$(this);
                                 link.off( 'click' );
                                 link.prop( 'id', '' );
+                                $("html, body").animate( { scrollTop: _document.height() - _window.height() }, 400 );
                                 loading.forceLoad();
                             } );
                 }
@@ -187,13 +201,14 @@ _document.ready( function($) {
         el: false,
         nav: false,
         loader: false,
-        enabled: true,
+        enabled: false,
         ajax: false,
         init: function() {
             this.el = $('.paging-navigation a');
             if (this.el.length == 1) {
                 this.nav = this.el.parent();
                 this.loader = $('#infinite-loader');
+                this.enabled =true;
                 _window.on('ready load resize scroll.loading', loading.process);
             }
         },
@@ -247,4 +262,4 @@ _document.ready( function($) {
     };
     loading.init();
 
-});
+})( jQuery );

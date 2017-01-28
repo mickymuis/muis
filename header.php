@@ -20,7 +20,13 @@
         </span>
 	
         <header id="masthead" class="site-header" role="banner">
-		<h1 class="site-title"><a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a></h1>
+                <?php
+                if( function_exists( 'the_custom_logo' ) )
+                    the_custom_logo();
+                ?>
+		<h1 class="site-title">
+                    <a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>
+                </h1>
 		<nav id="primary-navigation" class="site-navigation primary-navigation" role="navigation">
 			<?php wp_nav_menu(array('theme_location' => 'primary', 'menu_class' => 'nav-menu', 'container_id' => 'top-main-menu', 'fallback_cb' => false)); ?>
 			<?php wp_nav_menu(array('theme_location' => 'secondary', 'menu_class' => 'nav-menu', 'container_id' => 'top-right-menu', 'fallback_cb' => false)); ?>
@@ -41,6 +47,10 @@
             ?>
                     <span class="header-text"><h1><?php echo get_theme_mod( 'header_text_h1', '' ); ?></h1></span>
             <?php } ?>
+            </div>
+        
+            <div class="gallery-next-button button-link">
+                <a href="#post-first" onClick='(function($){$("html,body").animate( { scrollTop: $(window).height() }, 400 );})(jQuery);'><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a>
             </div>
         </div>
     </div>

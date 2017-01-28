@@ -80,7 +80,7 @@ if( !function_exists( 'muis_scripts' ) ) :
     function muis_scripts() {
         /** Enable the core javascript file */
 
-        wp_enqueue_script( 'muis-functions', get_template_directory_uri() . '/js/functions.js', array ( 'jquery' ), '1.0', false);
+        wp_enqueue_script( 'muis-functions', get_template_directory_uri() . '/js/functions.js', array ( 'jquery' ), '1.0', true );
         wp_enqueue_style( 'muis-style', get_stylesheet_uri() );
 	
         // Load the Internet Explorer 8 specific stylesheet.
