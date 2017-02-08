@@ -116,6 +116,12 @@ blockquote {
     margin-left: 1rem;
 }
 
+.aligncenter {
+    float: left;
+    width: 100%;
+    height: auto;
+}
+
 /** 
   * The fluid wrapper provides a centered box that is influenced by viewport-width and font-size.
   */
@@ -449,8 +455,8 @@ box-shadow: 0px 500px 0px 500px whitesmoke;
     -webkit-columns: 2 340px;
     -moz-columns: 2 340px;
     columns: 2 340px;
-    -moz-column-fill: auto;
-         column-fill: auto;   
+  /*  -moz-column-fill: auto;
+         column-fill: auto;*/   
 }
 
 .entry-content img, .entry-content div, .entry-content iframe {
