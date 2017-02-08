@@ -27,7 +27,7 @@ if( !function_exists( 'muis_setup' ) ) :
         
         /* Thumbnail support */
         add_theme_support( 'post-thumbnails' );
-	set_post_thumbnail_size( 900, 900 );
+	set_post_thumbnail_size( 1280, 1280 );
         
         /* Set-up menus */
         register_nav_menus( array(

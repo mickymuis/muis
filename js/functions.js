@@ -12,8 +12,9 @@ var _navbar_visible_area =100;
 var _tablet_width = 950;
 var _smallscreen_width = 481;
 var _gallery_image_height_factor =0.75;
-var _gallery_image_width_factor =1.0;
+var _gallery_image_width_factor =0.9;
 var _gallery_image_border =20;
+var _ajax_loader_edge =100;
 
 var _vmin =function() {
     if( _window.height() < _window.width() )
@@ -36,7 +37,7 @@ var _vmax =function() {
         widget_el: false,
         widget_content_el: false,
         media_el: false,
-        font_size_vmax: 0.03,
+        font_size_vmax: 0.04,
         init: function() {
             this.widget_el =$('#header-widget');
             this.widget_content_el =this.widget_el.find( '#header-widget-contents' );
@@ -166,10 +167,17 @@ var _vmax =function() {
                 // Scale image depending on image and window width-height ratio
                 if( image.height() / image.width() < winHeight / winWidth ) {
                     image.css( 'height', 'auto' );
-                    image.css( 'width', Math.round( winWidth * _gallery_image_width_factor ) + 'px' );
+                    if( winWidth < _smallscreen_width )
+                        image.css( 'width', winWidth + 'px' );
+                    else
+                        image.css( 'width', Math.round( winWidth * _gallery_image_width_factor ) + 'px' );
+                    if( image.height() <= 0 ) 
+                        return;
                 } else {
                     image.css( 'width', 'auto' );
                     image.css( 'height', Math.round( winHeight * _gallery_image_height_factor ) + 'px' );
+                    if( image.width() <= 0 )
+                        return;
                 }
 
                 /*container.css( 'margin-top', -Math.round( container.height() / 2 ) + 'px' );
@@ -197,7 +205,7 @@ var _vmax =function() {
     gallery.init();
     // Infinite loading for index page
     var loading = {
-        start_from: 25,
+        start_from: _ajax_loader_edge,
         el: false,
         nav: false,
         loader: false,
@@ -214,7 +222,7 @@ var _vmax =function() {
         },
         process: function() {
             if (loading.enabled && !loading.ajax) {
-                if (_window.scrollTop() > _document.height() - _window.height() - loading.start_from) {
+                if (_window.scrollTop() > (_document.height() - _window.height()) - loading.start_from) {
                     loading.load();
                 }
             }

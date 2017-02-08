@@ -8,7 +8,7 @@ global $next_id;
 global $row_alt;
 
 while( have_posts() ) : the_post();
-    if( empty( $last_id ) ) {
+    if( empty( $last_id ) && ( !has_post_format( 'image' ) || is_search() ) ) {
         if( !is_home() )
             echo '<div class="first-post-spacer"></div>';
     
