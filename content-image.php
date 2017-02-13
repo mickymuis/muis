@@ -25,10 +25,10 @@ $frame_color =esc_attr( get_post_meta( $post->ID, 'frame_color', true ) );
         the_excerpt();?>
         </div>
         <div class="gallery-next-button button-link">
-            <a <?php if( !more_posts() ) echo 'id="gallery-load-more"'; ?> href="#post-<?php echo $next_id; ?>"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a>
+            <a><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a>
         </div>
         <div class="gallery-prev-button button-link">
-            <a href="#post-<?php echo $last_id; ?>"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
+            <a><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
         </div>
 <?php endif; ?>
     </article>

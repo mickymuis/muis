@@ -13,11 +13,11 @@ while( have_posts() ) : the_post();
             echo '<div class="first-post-spacer"></div>';
     
     }
-    $next_post =get_adjacent_post();
+    $next_post =get_adjacent_post( false, '', true );
     if( !empty( $next_post ) )
         $next_id =$next_post->ID;
     
-    $prev_post =get_adjacent_post( true, '', false );
+    $prev_post =get_adjacent_post( false, '', false );
     if( !empty( $prev_post ) )
         $last_id =$prev_post->ID;
 

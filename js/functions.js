@@ -143,11 +143,11 @@ var _vmax =function() {
     var gallery = {
         images: false,
         init: function() {
-            this.update();
+            /*this.update();
             if( this.images.length > 0 ) {
-                this.update();
+                this.update();*/
                 _window.on( 'ready load resize', gallery.update );
-            }
+            //}
         },
         update: function() {
             gallery.images =$('.gallery-backdrop');
@@ -155,7 +155,8 @@ var _vmax =function() {
             var winHeight =_window.height();
             
             // Center every image and make the backdrop window-sized
-            gallery.images.each( function() {
+            var previous =null;
+            gallery.images.each( function(index) {
                 var backdrop =$(this);
                 backdrop.css( 'width', winWidth + 'px' );
                 backdrop.css( 'height', winHeight + 'px' );
@@ -186,18 +187,39 @@ var _vmax =function() {
                 container.css( 'margin-left', -Math.round( image.width() / 2 + _gallery_image_border ) + 'px' );
                 
                 image.fadeIn( 'fast' );
-                var load_link =backdrop.find( '#gallery-load-more' );
-                if( load_link.length == 1 ) {
-                    load_link.off( 'click' );                    
-                    load_link.on( 'click', function(e) {
+
+                // Fix the 'prev image' button
+                var prev_top =previous != null ? previous.position().top : 0;
+                var prev_bttn =backdrop.find( '.gallery-prev-button' );
+                prev_bttn.off( 'click' );
+                prev_bttn.on( 'click', function(e) {
+                            e.preventDefault();
+                            $('html,body').animate( { scrollTop: prev_top }, 400 );
+                        } );
+
+                // Now fix the 'next image' button
+                
+                var next_bttn =backdrop.find( '.gallery-next-button' );
+                next_bttn.off( 'click' );
+
+                if( index == gallery.images.length - 1 ) {
+                    next_bttn.on( 'click', function(e) {
                                 e.preventDefault();
                                 var link =$(this);
                                 link.off( 'click' );
-                                link.prop( 'id', '' );
                                 $("html, body").animate( { scrollTop: _document.height() - _window.height() }, 400 );
-                                loading.forceLoad();
+                                loading.forceLoad( true );
                             } );
                 }
+                else {
+                    next_bttn.on( 'click', function(e) {
+                                e.preventDefault();
+                                $("html, body").animate( { scrollTop: backdrop.position().top + backdrop.height() }, 400 );
+                            } );
+            
+                }
+
+                previous =backdrop;
             } );
         }
 
@@ -223,16 +245,16 @@ var _vmax =function() {
         process: function() {
             if (loading.enabled && !loading.ajax) {
                 if (_window.scrollTop() > (_document.height() - _window.height()) - loading.start_from) {
-                    loading.load();
+                    loading.load(false);
                 }
             }
         },
         forceLoad: function() { 
             if (loading.enabled && !loading.ajax) {
-                loading.load();
+                loading.load(true);
             }
         },
-        load: function() {
+        load: function( focus ) {
                 loading.loader.addClass('active');
                 loading.ajax = true;
                 $.ajax({
@@ -263,6 +285,11 @@ var _vmax =function() {
                             _window.off('scroll.loading');
                         }
                         loading.loader.removeClass('active');
+                        // Optionally, scroll to the first new element
+                        if( focus ) {
+                            var first_item =items.first();
+                            $("html, body").animate( { scrollTop: first_item.position().top }, 400 );
+                        }
                     }
                 });
             }

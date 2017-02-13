@@ -502,13 +502,13 @@ width: 100%;
     margin-left: -270px;
     margin-top: -270px;
     /* Fallback for web browsers that doesn't support RGBa */
-    background: rgb(128, 128, 128);
-    /* RGBa with 0.6 opacity */
+    background: transparent;
+    /* RGBa with 0.2 opacity */
     background: rgba(255, 255, 255, 0.2);
     /* For IE 5.5 - 7*/
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#44FFFFFF, endColorstr=#44FFFFFF);
+   /* filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#44FFFFFF, endColorstr=#44FFFFFF);*/
     /* For IE 8*/
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#44FFFFFF, endColorstr=#44FFFFFF)";
+   /* -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#44FFFFFF, endColorstr=#44FFFFFF)";*/
     padding: 20px;
     /*border: 1px solid whitesmoke;*/
 }
