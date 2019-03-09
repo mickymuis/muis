@@ -452,17 +452,17 @@ box-shadow: 0px 500px 0px 500px whitesmoke;
 }
 
 .entry-content {
-    -webkit-columns: 2 340px;
+ /*   -webkit-columns: 2 340px;
     -moz-columns: 2 340px;
-    columns: 2 340px;
+    columns: 2 340px;*/
   /*  -moz-column-fill: auto;
          column-fill: auto;*/   
 }
 
 .entry-content img, .entry-content div, .entry-content iframe {
-    column-span: all;
+  /*  column-span: all;
     -moz-column-span: all;
-    -webkit-column-span: all;
+    -webkit-column-span: all;*/
     max-width: 100%;
     height: auto;
 }
