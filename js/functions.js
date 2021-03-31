@@ -14,7 +14,7 @@ var _smallscreen_width = 481;
 var _gallery_image_height_factor =0.75;
 var _gallery_image_width_factor =0.9;
 var _gallery_image_border =20;
-var _ajax_loader_edge =100;
+var _ajax_loader_edge =150;
 
 var _vmin =function() {
     if( _window.height() < _window.width() )
@@ -269,8 +269,10 @@ var _vmax =function() {
                             var $entry =$(this);
                             $entry.insertBefore(loading.nav);
                             var $gimage =$entry.find( '.gallery-image img' );
+                            // Lazy loading can prevent the load event from being triggered, so we disable it for the gallery images
+                            $gimage.attr('loading', 'eager' );
                             if( $gimage.length == 1 ) {
-                                $gimage.load( function() {
+                                $gimage.one( 'load', function() {
                                     gallery.update();
                                     $entry.hide();
                                     $entry.fadeIn('slow');
